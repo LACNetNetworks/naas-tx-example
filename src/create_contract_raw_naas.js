@@ -29,21 +29,18 @@ console.log("******************************************");
 var web3 = new Web3(new Web3.providers.HttpProvider(provider))
 web3.transactionConfirmationBlocks = 1;
 // Sender address and private key
-// Second acccount in dev.json genesis file
-// Exclude 0x at the beginning of the private key
-
-const addressFrom = '0x2d48B0E5468d690FB77454552B118584d09690F5';//admin2
-const privKey = Buffer.from('a0a2af404337c096113bc2c180df7a6636a88f8eb5da6160817f9315aaafee80', 'hex')
-
-
-
-const nodeAddress = '0x0a68f7da3cf23176d6ae60828de2a03a2863b3e7';
-
+const addressFrom = "0x2d48B0E5468d690FB77454552B118584d09690F5";
+const privKey = Buffer.from(
+  "a0a2af404337c096113bc2c180df7a6636a88f8eb5da6160817f9315aaafee80",
+  "hex"
+);
+//node  tessera01
+const nodeAddress = "0x0a68f7da3cf23176d6ae60828de2a03a2863b3e7";
 
 console.log("addressFrom:" + addressFrom)
 const expiration = 1898156266;
 let valueAdd= web3.eth.abi.encodeParameters(
-  ["address","uint256"],
+["address","uint256"],
   [nodeAddress,expiration]);
 
 console.log("valueAdd-" + valueAdd.substr(2));

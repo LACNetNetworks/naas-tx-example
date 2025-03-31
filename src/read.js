@@ -1,5 +1,5 @@
 const Web3 = require('web3');
-var provider =  'http://35.185.112.219';
+var provider =  'http://146.148.73.191';
 // Conectar a tu nodo (puedes usar la URL de un nodo local o Infura si es red pública)
 //const web3 = new Web3('http://localhost:8545'); // Ajusta el URL de tu nodo si es necesario
 var web3 = new Web3(new Web3.providers.HttpProvider(provider))
@@ -9,7 +9,7 @@ const usersContractCompile = require('../scripts/compile');
 const abi = usersContractCompile.abi
 
 // Dirección del contrato desplegado
-const contractAddress = '0xbD2c633E8E08cCA67bf11B4C8EbEaFDA0bc0103d'; // Reemplaza con la dirección real
+const contractAddress = '0xdE1Ca01DBcc1E327AeDd89b9Bf1a425069A3cE61'; // Reemplaza con la dirección real
 
 // Cargar el contrato con web3
 const contract = new web3.eth.Contract(abi, contractAddress);

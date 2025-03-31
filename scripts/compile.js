@@ -5,8 +5,13 @@ const chalk = require('chalk');
 
 const storagePath = path.resolve(__dirname, '../contracts',"Storage.sol");
 const baseRelayRecipientPath = path.resolve(__dirname, '../contracts',"BaseRelayRecipient.sol");
+// const baseRelayRecipientNftPath = path.resolve(__dirname, '../contracts',"BaseRelayRecipientNft.sol");
+// const myNftPath = path.resolve(__dirname, '../contracts',"MyNFT.sol");
+
 const storageSource = fs.readFileSync(storagePath,'utf8');
 const baseRelayRecipientSource = fs.readFileSync(baseRelayRecipientPath,'utf8');
+// const baseRelayRecipientNftSource = fs.readFileSync(baseRelayRecipientNftPath,'utf8');
+// const myNftSource = fs.readFileSync(myNftPath,'utf8');
 
 var input = {
     language: 'Solidity',
@@ -16,7 +21,13 @@ var input = {
         },
         'BaseRelayRecipient.sol' : {
             content: baseRelayRecipientSource
-        }
+        },
+        // 'BaseRelayRecipientNft.sol' : {
+        //     content: baseRelayRecipientNftSource
+        // },
+        // 'MyNFT.sol' : {
+        //     content: myNftSource
+        // }
 
     },
     settings: {
