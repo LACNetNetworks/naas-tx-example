@@ -1,48 +1,35 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
-
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/interfaces/IERC4906.sol";
 import "./BaseRelayRecipientNft.sol";
-
-contract MyNFT is ERC721URIStorage, Ownable, BaseRelayRecipient {
-    uint256 private _tokenIds = 1;
-    mapping(string => uint256) public emailToTokenId;
-
-    constructor(address _trustedForwarder) 
-        ERC721("RegeneraNFT", "REGNFT") 
-        Ownable(tx.origin)  
-
+contract MyNFT is ERC721, Ownable, BaseRelayRecipientNft {
+    uint256 private _tokenIdCounter;
+    event Paused(address owner);
+    event Unpaused(address owner);
+    error ContractPaused();
+    error TokenDoesNotExist(uint256 tokenId);
+    constructor(
+        address owner_,
+        address trustedForwarder_
+    )
+        Ownable(owner_)
+        BaseRelayRecipientNft(trustedForwarder_)
+        ERC721("LACNETnft", "LACNFT")
+    {}
+    /// @notice Override necesario para compatibilidad con transacciones relayed en LACChain
+    function _msgSender()
+        internal
+        view
+        override(Context, BaseRelayRecipientNft)
+        returns (address)
     {
-        trustedForwarder = _trustedForwarder;
+        return BaseRelayRecipientNft._msgSender();
     }
-
-    function _msgSender() internal view override(Context, BaseRelayRecipient) returns (address) {
-        return BaseRelayRecipient._msgSender();
-    }
-
-    function mintNFT(string memory userEmail, string memory tokenURI) public onlyOwner returns (uint256) {
-        require(emailToTokenId[userEmail] == 0, "Email already registered");
-
-        _tokenIds++;
-        uint256 newItemId = _tokenIds;
-
-        _mint(_msgSender(), newItemId);
-        _setTokenURI(newItemId, tokenURI);
-        emailToTokenId[userEmail] = newItemId;
-
-        return newItemId;
-    }
-
-    function getTokenIdByEmail(string memory userEmail) public view returns (uint256) {
-        return emailToTokenId[userEmail];
-    }
-
-    function versionRecipient() external pure returns (string memory) {
-        return "1";
-    }
-
-    function owner() public view override returns (address) {
-        return super.owner();
+    function mint(address to) public onlyOwner {
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
+        _safeMint(to, tokenId);
     }
 }

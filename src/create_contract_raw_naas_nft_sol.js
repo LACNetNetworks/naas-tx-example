@@ -48,11 +48,10 @@ console.log("valueAdd-" + valueAdd.substr(2));
 
 // hexadecimal encoded compiled contract code
 
-const usersContractCompile = require("../scripts/compile");
+const usersContractCompile = require("../scripts/compileMyNFT");
 console.log("bytecode");
 console.log(usersContractCompile.evm.bytecode.object);
 //bytecode = '0x'+contractData + valueAdd.substr(2)
-
 //bytecode = '0x'+contractData
 const bytecode =
   "0x" + usersContractCompile.evm.bytecode.object + valueAdd.substr(2);

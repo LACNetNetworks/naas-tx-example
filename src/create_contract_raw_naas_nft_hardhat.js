@@ -48,14 +48,15 @@ console.log("valueAdd-" + valueAdd.substr(2));
 
 // hexadecimal encoded compiled contract code
 
-const usersContractCompile = require("../scripts/compile");
+//const usersContractCompile = require("../scripts/compile");
+const usersContractCompile = require("../artifacts/contracts/MyNFT.sol/MyNFT.json");
 console.log("bytecode");
-console.log(usersContractCompile.evm.bytecode.object);
+console.log(usersContractCompile.bytecode);
 //bytecode = '0x'+contractData + valueAdd.substr(2)
 
 //bytecode = '0x'+contractData
-const bytecode =
-  "0x" + usersContractCompile.evm.bytecode.object + valueAdd.substr(2);
+//const bytecode = "0x" + usersContractCompile.bytecode + valueAdd.substr(2);
+const bytecode = usersContractCompile.bytecode;
 console.log("bytecode add");
 console.log(bytecode);
 // Get the address transaction count in order to specify the correct nonce
